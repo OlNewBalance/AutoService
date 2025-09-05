@@ -2,7 +2,7 @@ namespace AutoService
 {
     public class Auto
     {
-        public static List<AutoElement>
+        public List<AutoElement>
             elementsInAuto = new List<AutoElement>(); // Тут должны быть перечислены ВСЕ детали -
 
         // - которые есть в машине, та деталь которую надо будет заменить на сервисе, написана в List не будет!
