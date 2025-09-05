@@ -3,7 +3,7 @@ namespace AutoService;
 public class Storage()
 {
     public Dictionary<int, int> _partsQuantity = new Dictionary<int, int>();
-    public static List<AutoElement> _parts = new List<AutoElement>();
+    public List<AutoElement> _parts = new List<AutoElement>();
 
     public void AddPart(AutoElement part, int quantity = 1)
     {
