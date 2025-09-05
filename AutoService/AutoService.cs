@@ -2,19 +2,25 @@ namespace AutoService
 {
     public class AutoService
     {
+        Storage _storage;
+
+        public AutoService()
+        {
+            _storage = new Storage();
+        }
         static Random random = new Random();
-        public static int _balance = 100000;
+        public int _balance = 100000;
         private const int Penalty = 2500;
         private const int WorkCost = 20000;
         public const int AutoQueue = 10;
-        private static int _lastAutoId = 0;
-        public static int ToAddRadio = 0;
-        public static int ToAddWheel = 0;
-        public static int ToAddEngine = 0;
-        public static int ToAddHeadlights = 0;
-        public static int ToAddCarbureator = 0;
+        private int _lastAutoId = 0;
+        public int ToAddRadio = 0;
+        public int ToAddWheel = 0;
+        public int ToAddEngine = 0;
+        public int ToAddHeadlights = 0;
+        public int ToAddCarbureator = 0;
 
-        public static List<AutoElement> elementsStorage = new List<AutoElement>()
+        public List<AutoElement> elementsStorage = new List<AutoElement>()
         {
             new AutoElement(1, Auto.WheelPrice, "Колесо"),
             new AutoElement(2, Auto.EnginePrice, "Двигатель"),
@@ -28,11 +34,11 @@ namespace AutoService
             new AutoElement(5, Auto.CarbureatorPrice, "Карбюратор")
         };
 
-        public static Queue<Auto> QueueOfAuto = new Queue<Auto>();
+        public Queue<Auto> QueueOfAuto = new Queue<Auto>();
 
-        public static void AcceptCar(Auto car)
+        public void AcceptCar(Auto car)
         {
-            car.CheckMissingParts(Storage._parts);
+            car.CheckMissingParts(_storage._parts);
 
             if (car.IsEngineMissing)
             {
@@ -121,7 +127,7 @@ namespace AutoService
             // Аналогично для других деталей
         }
 
-        public static void AutosRenderer(int countToAdd)
+        public void AutosRenderer(int countToAdd)
         {
             for (int i = 0; i < countToAdd; i++)
             {
@@ -140,7 +146,7 @@ namespace AutoService
             Console.WriteLine($"Добавлено машин: {countToAdd}"); // Для отладки
         }
 
-        public static void AutoElementsRenderer(int elementId, int countToAdd)
+        public void AutoElementsRenderer(int elementId, int countToAdd)
         {
             if (elementId == Auto.WheelId)
             {
@@ -179,7 +185,7 @@ namespace AutoService
             }
         }
 
-        public static int ExpensesCalc(int addRadio, int addWheel, int addCarbureator, int addEngine,
+        public int ExpensesCalc(int addRadio, int addWheel, int addCarbureator, int addEngine,
             int addHeadlights)
         {
             int RadioExpense = Auto.RadioPrice;
