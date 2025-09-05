@@ -2,6 +2,17 @@ namespace AutoService;
 
 public class AutoServiceCycle
 {
+    AutoService _autoService;
+    AutoElement _autoElement;
+    Auto _auto;
+
+    public AutoServiceCycle()
+    {
+        _autoService = new AutoService();
+        _autoElement = new AutoElement(54, 54, "hhg");
+        _auto = new Auto(false, false,false,false,
+            false, 45);
+    }
     public void Start()
     {
         while (true)
@@ -9,27 +20,27 @@ public class AutoServiceCycle
             Console.WriteLine("Добро пожаловать в автосервис! Чтобы начать нажмите ENTER.");
             if (Console.ReadLine() == "") ;
             {
-                AutoService.AutosRenderer(AutoService.AutoQueue);
-                Console.WriteLine($"В автосервис подъехало {AutoService.QueueOfAuto.Count} машин!");
+                _autoService.AutosRenderer(AutoService.AutoQueue);
+                Console.WriteLine($"В автосервис подъехало {_autoService.QueueOfAuto.Count} машин!");
                 Console.WriteLine("Обслужить??? ENTER.");
                 if (Console.ReadLine() == "") ;
                 {
-                    if (AutoService.QueueOfAuto == null || AutoService.QueueOfAuto.Count == 0)
+                    if (_autoService.QueueOfAuto == null || _autoService.QueueOfAuto.Count == 0)
                     {
                         Console.WriteLine("Очередь машин пуста!");
                         return;
                     }
 
-                    for (int i = 0; i < AutoService.QueueOfAuto.Count; i++)
+                    for (int i = 0; i < _autoService.QueueOfAuto.Count; i++)
                     {
                         Console.WriteLine($"Обслуживаем {i + 1}-ю машину!");
 
                         // Для Queue используем ElementAt или ToArray()
-                        var currentAuto = AutoService.QueueOfAuto.ElementAt(i);
-                        AutoService.AcceptCar(currentAuto);
-                        Console.WriteLine($"Бюджет:{AutoService._balance}");
+                        var currentAuto = _autoService.QueueOfAuto.ElementAt(i);
+                        _autoService.AcceptCar(currentAuto);
+                        Console.WriteLine($"Бюджет:{_autoService._balance}");
                         Console.WriteLine("Состояние склада:");
-                        foreach (var AutoElements in AutoService.elementsStorage)
+                        foreach (var AutoElements in _autoService.elementsStorage)
                         {
                             Console.WriteLine(AutoElements);
                         }
@@ -42,7 +53,7 @@ public class AutoServiceCycle
                             string radioInput = Console.ReadLine();
                             if (!string.IsNullOrEmpty(radioInput))
                             {
-                                AutoService.ToAddRadio = Convert.ToInt32(radioInput); // Используем radioInput!
+                                _autoService.ToAddRadio = Convert.ToInt32(radioInput); // Используем radioInput!
                             }
 
                             Console.WriteLine("Enter");
@@ -53,7 +64,7 @@ public class AutoServiceCycle
                             string wheelInput = Console.ReadLine();
                             if (!string.IsNullOrEmpty(wheelInput))
                             {
-                                AutoService.ToAddWheel = Convert.ToInt32(wheelInput); // Используем wheelInput!
+                                _autoService.ToAddWheel = Convert.ToInt32(wheelInput); // Используем wheelInput!
                             }
 
                             // Карбюраторы
@@ -61,7 +72,7 @@ public class AutoServiceCycle
                             string carbureatorInput = Console.ReadLine();
                             if (!string.IsNullOrEmpty(carbureatorInput))
                             {
-                                AutoService.ToAddCarbureator = Convert.ToInt32(carbureatorInput);
+                                _autoService.ToAddCarbureator = Convert.ToInt32(carbureatorInput);
                             }
 
                             // Двигатели
@@ -69,7 +80,7 @@ public class AutoServiceCycle
                             string engineInput = Console.ReadLine();
                             if (!string.IsNullOrEmpty(engineInput))
                             {
-                                AutoService.ToAddEngine = Convert.ToInt32(engineInput);
+                                _autoService.ToAddEngine = Convert.ToInt32(engineInput);
                             }
 
                             // Фары
@@ -77,30 +88,30 @@ public class AutoServiceCycle
                             string headInput = Console.ReadLine();
                             if (!string.IsNullOrEmpty(headInput))
                             {
-                                AutoService.ToAddHeadlights = Convert.ToInt32(headInput);
+                                _autoService.ToAddHeadlights = Convert.ToInt32(headInput);
                             }
 
-                            int BuyExpenses = AutoService.ExpensesCalc(
-                                AutoService.ToAddRadio,
-                                AutoService.ToAddWheel,
-                                AutoService.ToAddCarbureator,
-                                AutoService.ToAddEngine,
-                                AutoService.ToAddHeadlights
+                            int BuyExpenses = _autoService.ExpensesCalc(
+                                _autoService.ToAddRadio,
+                                _autoService.ToAddWheel,
+                                _autoService.ToAddCarbureator,
+                                _autoService.ToAddEngine,
+                                _autoService.ToAddHeadlights
                             );
 
                             Console.WriteLine("Enter");
 
-                            if (AutoService._balance >= BuyExpenses)
+                            if (_autoService._balance >= BuyExpenses)
                             {
-                                AutoService.AutoElementsRenderer(1, AutoService.ToAddWheel);
-                                AutoService.AutoElementsRenderer(2, AutoService.ToAddEngine);
-                                AutoService.AutoElementsRenderer(3, AutoService.ToAddHeadlights);
-                                AutoService.AutoElementsRenderer(4, AutoService.ToAddRadio);
-                                AutoService.AutoElementsRenderer(5, AutoService.ToAddCarbureator);
-                                AutoService._balance -= BuyExpenses;
+                                _autoService.AutoElementsRenderer(1, _autoService.ToAddWheel);
+                                _autoService.AutoElementsRenderer(2, _autoService.ToAddEngine);
+                                _autoService.AutoElementsRenderer(3, _autoService.ToAddHeadlights);
+                                _autoService.AutoElementsRenderer(4, _autoService.ToAddRadio);
+                                _autoService.AutoElementsRenderer(5, _autoService.ToAddCarbureator);
+                                _autoService._balance -= BuyExpenses;
                                 Console.WriteLine($"Было потрачено - {BuyExpenses}");
                             }
-                            else if (AutoService._balance < BuyExpenses)
+                            else if (_autoService._balance < BuyExpenses)
                             {
                                 Console.WriteLine($"Вам не хватает - {BuyExpenses}");
                             }
