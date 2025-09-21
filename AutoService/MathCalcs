@@ -1,0 +1,23 @@
+namespace AutoService;
+
+public class MathCalcs
+{
+    public int ExpensesCalc(int addRadio, int addWheel, int addCarbureator, int addEngine,
+        int addHeadlights)
+    {
+        int radioExpense = Auto.RadioPrice;
+        int wheelExpense = Auto.WheelPrice;
+        int engineExpense = Auto.EnginePrice;
+        int carbureatorExpense = Auto.CarbureatorPrice;
+        int headlightsExpense = Auto.HeadlightsPrice;
+
+        radioExpense *= addRadio;
+        wheelExpense *= addWheel;
+        carbureatorExpense *= addCarbureator;
+        engineExpense *= addEngine;
+        headlightsExpense *= addHeadlights;
+
+        int expenses = radioExpense + wheelExpense + carbureatorExpense + engineExpense + addHeadlights;
+        return expenses;
+    }
+}
