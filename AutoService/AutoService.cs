@@ -9,7 +9,7 @@ namespace AutoService
         public const int _workCost = 20000;
         public const int AutoQueue = 10;
 
-        Storage _storage;
+        public Storage _storage;
         public int Balance = 100000;
         public int ToAddRadio = 0;
         public int ToAddWheel = 0;
