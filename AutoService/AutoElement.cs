@@ -2,15 +2,15 @@ namespace AutoService
 {
     public class AutoElement
     {
-        public int elementID { get; set; }
-        public string elementName { get; }
-        public int elementPrice { get; }
+        public int ElementId;
+        public string ElementName;
+        public int ElementPrice;
 
         public AutoElement(int id, int price, string name)
         {
-            elementID = id;
-            elementPrice = price;
-            elementName = name;
+            ElementId = id;
+            ElementPrice = price;
+            ElementName = name;
         }
     }
 }
