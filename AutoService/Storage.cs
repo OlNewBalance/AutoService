@@ -2,35 +2,35 @@ namespace AutoService;
 
 public class Storage()
 {
-    public Dictionary<int, int> _partsQuantity = new Dictionary<int, int>();
-    public List<AutoElement> _parts = new List<AutoElement>();
+    public Dictionary<int, int> PartsQuantity = new Dictionary<int, int>();
+    public List<AutoElement> Parts = new List<AutoElement>();
 
     public void AddPart(AutoElement part, int quantity = 1)
     {
-        if (!_parts.Any(p => p.elementID == part.elementID))
+        if (!Parts.Any(p => p.ElementId == part.ElementId))
         {
-            _parts.Add(part);
+            Parts.Add(part);
         }
 
-        if (_partsQuantity.ContainsKey(part.elementID))
+        if (PartsQuantity.ContainsKey(part.ElementId))
         {
-            _partsQuantity[part.elementID] += quantity;
+            PartsQuantity[part.ElementId] += quantity;
         }
         else
         {
-            _partsQuantity[part.elementID] = quantity;
+            PartsQuantity[part.ElementId] = quantity;
         }
     }
 
     public bool TryGetPart(int partId, out AutoElement part)
     {
-        part = _parts.FirstOrDefault(p => p.elementID == partId);
-        if (part == null || !_partsQuantity.ContainsKey(partId) || _partsQuantity[partId] <= 0)
+        part = Parts.FirstOrDefault(p => p.ElementId == partId);
+        if (part == null || !PartsQuantity.ContainsKey(partId) || PartsQuantity[partId] <= 0)
         {
             return false;
         }
 
-        _partsQuantity[partId]--;
+        PartsQuantity[partId]--;
         return true;
     }
 }
