@@ -3,13 +3,15 @@ namespace AutoService;
 public class AutoServiceCycle
 {
     AutoService _autoService;
-    AutoElement _autoElement;
+    AutoChecker _autoChecker;
+    MathCalcs _mathCalcs;
     Auto _auto;
 
-    public AutoServiceCycle()
+    public AutoServiceCycle(AutoService autoService, AutoChecker autoChecker, MathCalcs mathCalcs)
     {
-        _autoService = new AutoService();
-        _autoElement = new AutoElement(54, 54, "hhg");
+        _mathCalcs = mathCalcs;
+        _autoService = autoService;
+        _autoChecker = autoChecker;
         _auto = new Auto(false, false,false,false,
             false, 45);
     }
@@ -37,12 +39,12 @@ public class AutoServiceCycle
 
                         // Для Queue используем ElementAt или ToArray()
                         var currentAuto = _autoService.QueueOfAuto.ElementAt(i);
-                        _autoService.AcceptCar(currentAuto);
-                        Console.WriteLine($"Бюджет:{_autoService._balance}");
+                        _autoChecker.AcceptCar(currentAuto);
+                        Console.WriteLine($"Бюджет:{_autoService.Balance}");
                         Console.WriteLine("Состояние склада:");
-                        foreach (var AutoElements in _autoService.elementsStorage)
+                        foreach (var autoElements in _autoService.ElementsStorage)
                         {
-                            Console.WriteLine(AutoElements);
+                            Console.WriteLine(autoElements);
                         }
 
                         Console.WriteLine("Закупиться запчастями? Y/Enter");
@@ -91,7 +93,7 @@ public class AutoServiceCycle
                                 _autoService.ToAddHeadlights = Convert.ToInt32(headInput);
                             }
 
-                            int BuyExpenses = _autoService.ExpensesCalc(
+                            int buyExpenses = _mathCalcs.ExpensesCalc(
                                 _autoService.ToAddRadio,
                                 _autoService.ToAddWheel,
                                 _autoService.ToAddCarbureator,
@@ -101,19 +103,19 @@ public class AutoServiceCycle
 
                             Console.WriteLine("Enter");
 
-                            if (_autoService._balance >= BuyExpenses)
+                            if (_autoService.Balance >= buyExpenses)
                             {
                                 _autoService.AutoElementsRenderer(1, _autoService.ToAddWheel);
                                 _autoService.AutoElementsRenderer(2, _autoService.ToAddEngine);
                                 _autoService.AutoElementsRenderer(3, _autoService.ToAddHeadlights);
                                 _autoService.AutoElementsRenderer(4, _autoService.ToAddRadio);
                                 _autoService.AutoElementsRenderer(5, _autoService.ToAddCarbureator);
-                                _autoService._balance -= BuyExpenses;
-                                Console.WriteLine($"Было потрачено - {BuyExpenses}");
+                                _autoService.Balance -= buyExpenses;
+                                Console.WriteLine($"Было потрачено - {buyExpenses}");
                             }
-                            else if (_autoService._balance < BuyExpenses)
+                            else if (_autoService.Balance < buyExpenses)
                             {
-                                Console.WriteLine($"Вам не хватает - {BuyExpenses}");
+                                Console.WriteLine($"Вам не хватает - {buyExpenses}");
                             }
                         }
 
