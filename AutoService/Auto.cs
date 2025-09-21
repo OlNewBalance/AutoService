@@ -3,7 +3,7 @@ namespace AutoService
     public class Auto
     {
         public List<AutoElement>
-            elementsInAuto = new List<AutoElement>(); // Тут должны быть перечислены ВСЕ детали -
+            ElementsInAuto = new List<AutoElement>(); // Тут должны быть перечислены ВСЕ детали -
 
         // - которые есть в машине, та деталь которую надо будет заменить на сервисе, написана в List не будет!
         public bool IsEngineMissing { get; set; }
@@ -41,11 +41,11 @@ namespace AutoService
         public void CheckMissingParts(List<AutoElement> existingParts)
         {
             // Проверяем отсутствие каждой критичной детали
-            IsEngineMissing = !elementsInAuto.Exists(p => p.elementID == EngineId);
-            IsRadioMissing = !elementsInAuto.Exists(p => p.elementID == RadioId);
-            IsWheelMissing = !elementsInAuto.Exists(p => p.elementID == WheelId);
-            IsCarbureatorMissing = !elementsInAuto.Exists(p => p.elementID == CarbureatorId);
-            IsHeadlightsMissing = !elementsInAuto.Exists(p => p.elementID == HeadlightsId);
+            IsEngineMissing = !ElementsInAuto.Exists(p => p.ElementId == EngineId);
+            IsRadioMissing = !ElementsInAuto.Exists(p => p.ElementId == RadioId);
+            IsWheelMissing = !ElementsInAuto.Exists(p => p.ElementId == WheelId);
+            IsCarbureatorMissing = !ElementsInAuto.Exists(p => p.ElementId == CarbureatorId);
+            IsHeadlightsMissing = !ElementsInAuto.Exists(p => p.ElementId == HeadlightsId);
         }
     }
 }
