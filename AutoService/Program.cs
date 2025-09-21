@@ -7,7 +7,13 @@ namespace AutoService
     {
         public static void Main()
         {
-            var game = new AutoServiceCycle();
+            Auto auto = new Auto(true,true,true,true,
+                true,1);
+            Storage storage = new Storage();
+            MathCalcs mathCalcs = new MathCalcs();
+            AutoService autoService = new AutoService();
+            AutoChecker autoChecker = new AutoChecker(autoService, storage);
+            var game = new AutoServiceCycle(autoService, autoChecker, mathCalcs);
             game.Start();
         }
     }
