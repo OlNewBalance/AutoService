@@ -1,0 +1,103 @@
+namespace AutoService;
+
+public class AutoChecker
+{
+    private AutoService _autoService;
+    private Storage _storage;
+    public AutoChecker(AutoService autoService, Storage storage)
+    {
+        _autoService = autoService;
+        _storage = storage;
+    }
+    
+    public void AcceptCar(Auto car)
+        {
+            car.CheckMissingParts(_storage.Parts);
+
+            if (car.IsEngineMissing)
+            {
+                var engine = _autoService.ElementsStorage.FirstOrDefault(e => e.ElementId == Auto.EngineId);
+                if (engine != null)
+                {
+                    Console.WriteLine("+ У машины проблемы с двигателем!");
+                    _autoService.ElementsStorage.Remove(engine);
+                    _autoService.Balance += Auto.EnginePrice + AutoService._workCost;
+                    Console.WriteLine($"Двигатель заменён! +{Auto.EnginePrice + AutoService._workCost} руб.");
+                }
+                else
+                {
+                    _autoService.Balance -= AutoService._penalty;
+                    Console.WriteLine($"Нет двигателя на складе! Штраф {-AutoService._penalty} руб.");
+                }
+            }
+
+            if (car.IsWheelMissing)
+            {
+                Console.WriteLine("+ У машины проблемы с колесом!");
+                var wheel = _autoService.ElementsStorage.FirstOrDefault(e => e.ElementId == Auto.WheelId);
+                if (wheel != null)
+                {
+                    _autoService.ElementsStorage.Remove(wheel);
+                    _autoService.Balance += Auto.WheelPrice + AutoService._workCost;
+                    Console.WriteLine($"Колесо заменено! +{Auto.WheelPrice + AutoService._workCost} руб.");
+                }
+                else
+                {
+                    _autoService.Balance -= AutoService._penalty;
+                    Console.WriteLine($"Нет колеса на складе! Штраф {-AutoService._penalty} руб.");
+                }
+            }
+
+            if (car.IsRadioMissing)
+            {
+                Console.WriteLine("+ У машины проблемы с радио!");
+                var radio = _autoService.ElementsStorage.FirstOrDefault(e => e.ElementId == Auto.RadioId);
+                if (radio != null)
+                {
+                    _autoService.ElementsStorage.Remove(radio);
+                    _autoService.Balance += Auto.RadioPrice + AutoService._workCost;
+                    Console.WriteLine($"Радио заменено! +{Auto.RadioPrice + AutoService._workCost} руб.");
+                }
+                else
+                {
+                    _autoService.Balance -= AutoService._penalty;
+                    Console.WriteLine($"Нет радио на складе! Штраф {-AutoService._penalty} руб.");
+                }
+            }
+
+            if (car.IsCarbureatorMissing)
+            {
+                Console.WriteLine("+ У машины проблемы с карбюратором!");
+                var carbureator = _autoService.ElementsStorage.FirstOrDefault(e => e.ElementId == Auto.CarbureatorId);
+                if (carbureator != null)
+                {
+                    _autoService.ElementsStorage.Remove(carbureator);
+                    _autoService.Balance += Auto.CarbureatorPrice + AutoService._workCost;
+                    Console.WriteLine($"Карбюратор заменён! +{Auto.CarbureatorPrice + AutoService._workCost} руб.");
+                }
+                else
+                {
+                    _autoService.Balance -= AutoService._penalty;
+                    Console.WriteLine($"Нет карбюратора на складе! Штраф {-AutoService._penalty} руб.");
+                }
+            }
+
+            if (car.IsHeadlightsMissing)
+            {
+                Console.WriteLine("+ У машины проблемы с фарами!");
+                var headlights = _autoService.ElementsStorage.FirstOrDefault(e => e.ElementId == Auto.HeadlightsId);
+                if (headlights != null)
+                {
+                    _autoService.ElementsStorage.Remove(headlights);
+                    _autoService.Balance += Auto.HeadlightsPrice + AutoService._workCost;
+                    Console.WriteLine($"Фары замены! +{Auto.HeadlightsPrice + AutoService._workCost} руб.");
+                }
+                else
+                {
+                    _autoService.Balance -= AutoService._penalty;
+                    Console.WriteLine($"Нет фар на складе! Штраф {-AutoService._penalty} руб.");
+                }
+            }
+            // Аналогично для других деталей
+        }
+}
